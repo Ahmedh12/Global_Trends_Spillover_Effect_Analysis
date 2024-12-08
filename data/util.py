@@ -1,5 +1,33 @@
+from pyspark.sql.functions import col
 from pyspark.sql import SparkSession
+from pyspark.sql.types import DoubleType
+from enum import Enum , auto
+
 import os
+
+DATA_FOLDERS = [
+    "../data/processed/dow_jones",
+    "../data/processed/ftse_100",
+    "../data/processed/nikkei_225",
+    "../data/processed/s&p_500",
+    "../data/processed/EGX_30"
+]
+
+class ColumnNames(Enum):
+    Date    = auto()
+    Open    = auto()
+    Close   = auto()
+    Low     = auto()
+    High    = auto()
+    Volume  = auto()
+
+
+class Indices(Enum):
+    sp_500      = auto()
+    nikkei_225  = auto()
+    ftse_100    = auto()
+    dow_Jones   = auto()
+    EGX_30      = auto()
 
 
 def load_data_from_folder(folder_path: str):
@@ -20,7 +48,6 @@ def load_data_from_folder(folder_path: str):
         for file in csv_files:
             df = spark.read.option("header", "true").csv(file)
             dfs.append(df)
-
     # Union all DataFrames together into a single DataFrame
     if dfs:
         final_df = dfs[0]
@@ -29,3 +56,19 @@ def load_data_from_folder(folder_path: str):
         return final_df
     else:
         return None
+
+
+
+
+def rename_columns(df, prefix):
+    return df.select([col(c).alias(f"{prefix}_{c}") if c != "Date" else col(c) for c in df.columns])
+
+def cast_columns_to_double(df):
+    for col_name in df.columns:
+        if ColumnNames.Date.name not in col_name:
+            df =  df.withColumn(col_name, col(col_name).cast(DoubleType()))
+    return df
+
+
+def get_column_name(index_name: Indices, column_name: ColumnNames):
+    return f"{index_name.value.name}_{column_name.value.name}"

@@ -10,8 +10,7 @@ spark = SparkSession.builder \
     .appName("Unified Data Processing Script") \
     .getOrCreate()
 
-spark.conf.set("spark.eventLog.gcMetrics.youngGenerationGarbageCollectors", "G1 Concurrent GC")
-spark.conf.set("spark.eventLog.gcMetrics.oldGenerationGarbageCollectors", "G1 Concurrent GC")
+
 
 # Define directories
 raw_data_dir = "raw"
