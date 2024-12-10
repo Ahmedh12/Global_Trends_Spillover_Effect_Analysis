@@ -58,8 +58,6 @@ def load_data_from_folder(folder_path: str):
         return None
 
 
-
-
 def rename_columns(df, prefix):
     return df.select([col(c).alias(f"{prefix}_{c}") if c != "Date" else col(c) for c in df.columns])
 
@@ -68,7 +66,3 @@ def cast_columns_to_double(df):
         if ColumnNames.Date.name not in col_name:
             df =  df.withColumn(col_name, col(col_name).cast(DoubleType()))
     return df
-
-
-def get_column_name(index_name: Indices, column_name: ColumnNames):
-    return f"{index_name.value.name}_{column_name.value.name}"
