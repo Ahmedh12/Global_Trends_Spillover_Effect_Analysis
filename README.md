@@ -59,7 +59,7 @@ This project aims to analyze the influence of global stock market indices on the
 4. Ensure Spark is configured correctly with Hadoop and JDK.
 
 ## Usage
-1. Place CSV files for indices and exchange rates in the `data` directory.
+1. Run `download_data.py` to download the indices data in `data/raw` directory
 2. Run the PySpark script to preprocess data and calculate daily returns.
 3. Use Jupyter Notebook or the provided scripts to conduct analyses (correlation, Granger causality, GARCH modeling).
 4. Visualize and interpret the results.
@@ -80,5 +80,5 @@ This project aims to analyze the influence of global stock market indices on the
 3. PySpark documentation. Apache Spark: Unified Analytics Engine for Big Data. Retrieved from https://spark.apache.org/docs/latest/api/python/
 
 ## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License.
 
