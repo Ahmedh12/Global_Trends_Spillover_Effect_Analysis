@@ -1,33 +1,12 @@
-from pyspark.sql.functions import col
 from pyspark.sql import SparkSession
 from pyspark.sql.types import DoubleType
-from enum import Enum , auto
-
+from pyspark.ml.feature import MinMaxScaler, VectorAssembler
+from pyspark.ml.linalg import DenseVector
+from pyspark.sql.functions import col ,udf, lit
+from .constants import *
 import os
 
-DATA_FOLDERS = [
-    "../data/processed/dow_jones",
-    "../data/processed/ftse_100",
-    "../data/processed/nikkei_225",
-    "../data/processed/s&p_500",
-    "../data/processed/EGX_30"
-]
 
-class ColumnNames(Enum):
-    Date    = auto()
-    Open    = auto()
-    Close   = auto()
-    Low     = auto()
-    High    = auto()
-    Volume  = auto()
-
-
-class Indices(Enum):
-    sp_500      = auto()
-    nikkei_225  = auto()
-    ftse_100    = auto()
-    dow_Jones   = auto()
-    EGX_30      = auto()
 
 
 def load_data_from_folder(folder_path: str):
@@ -61,3 +40,32 @@ def cast_columns_to_double(df):
         if ColumnNames.Date.name not in col_name:
             df =  df.withColumn(col_name, col(col_name).cast(DoubleType()))
     return df
+
+
+def scale_df(df, columns_to_scale=None):
+    if columns_to_scale is None:
+        columns_to_scale = [col for col in df.columns if "Date" not in col]
+
+    assembler = VectorAssembler(inputCols=columns_to_scale, outputCol="features")
+    df_assembled = assembler.transform(df)
+
+    scaler = MinMaxScaler(inputCol="features", outputCol="scaled_features")
+    scaler_model = scaler.fit(df_assembled)
+    df_scaled = scaler_model.transform(df_assembled)
+
+    scaled_columns = ['scaled_' + col_name for col_name in columns_to_scale]
+    def extract_element(vector, index):
+        return float(vector[index]) if isinstance(vector, DenseVector) else None
+
+    extract_element_udf = udf(extract_element, DoubleType())
+
+    for i, col_name in enumerate(scaled_columns):
+        df_scaled = df_scaled.withColumn(col_name, extract_element_udf("scaled_features",lit(i)))
+
+    df_scaled = df_scaled.drop("features", "scaled_features")
+
+    return df_scaled
+
+if __name__ == "__main__":
+    pass
+
