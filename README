@@ -45,7 +45,7 @@ This project aims to analyze the influence of global stock market indices on the
 ## Installation
 1. Clone this repository.
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Ahmedh12/Global_Trends_Spillover_Effect_Analysis.git
    ```
 2. Set up a Conda environment.
    ```bash
