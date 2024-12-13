@@ -13,7 +13,9 @@ This project aims to analyze the influence of global stock market indices on the
 - Merging and aligning data by date across all indices.
 - Handling missing values using forward-fill or dropping missing rows.
 - Calculating daily returns for each index using the formula:
-  \[ \text{Daily Return} = \frac{\text{Current Close} - \text{Previous Close}}{\text{Previous Close}} \]
+
+  ![Daily Return](https://latex.codecogs.com/svg.latex?\text{Daily%20Return}=\frac{\text{Current%20Close}-\text{Previous%20Close}}{\text{Previous%20Close}})
+
 
 ### 3. Descriptive Analytics
 - Summary statistics were computed for daily returns to provide insights into the distribution and variability of each index.
