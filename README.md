@@ -72,10 +72,6 @@ This project aims to analyze the influence of global stock market indices on the
 - **Granger Causality**: Lag-specific causal relationships.
 - **GARCH Model**: Insights into volatility dynamics.
 
-## Limitations
-- Assumes linear relationships in correlation and Granger causality.
-- GARCH modeling is limited to univariate analysis in this project.
-
 ## References
 1. Investing.com. (n.d.). Historical data of global indices.
 2. Yahoo Finance. (n.d.). Historical data for S&P 500. Retrieved from https://finance.yahoo.com/quote/%5EGSPC/history/
