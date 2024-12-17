@@ -63,7 +63,7 @@ This project aims to analyze the influence of global stock market indices on the
 ## Usage
 1. Run `download_data.py` to download the indices data in `data/raw` directory
 2. Run the PySpark script to preprocess data and calculate daily returns.
-3. Use Jupyter Notebook or the provided scripts to conduct analyses (correlation, Granger causality, GARCH modeling).
+3. Use Jupyter Notebook or the provided scripts to conduct analyses (correlation, Granger causality).
 4. Visualize and interpret the results.
 
 ## Results
