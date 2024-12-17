@@ -29,9 +29,9 @@ This project aims to analyze the influence of global stock market indices on the
 - Granger causality tests were conducted to determine whether past values of one index can predict another index.
 - P-values for different lags were plotted to interpret significant causal relationships.
 
-### 6. GARCH Modeling
-- GARCH (Generalized Autoregressive Conditional Heteroskedasticity) models were applied to estimate volatility clustering in the indices.
-- Results included parameter estimates for mean and volatility equations, and their interpretation highlighted patterns of risk and return.
+### 6. Predictive Analytics
+- We trained a Gradient Boosting Regressor for each stock index using its respective data and evaluated its performance on the test split of the same dataset.  
+- Each trained model was cross-validated against EGX_30 data to compare its performance with the results obtained on its own test dataset.
 
 ## Prerequisites
 - Python 3.9+
