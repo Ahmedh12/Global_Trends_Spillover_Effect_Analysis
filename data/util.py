@@ -42,7 +42,8 @@ def cast_columns_to_double(df):
     return df
 
 
-def scale_df(df, columns_to_scale=None):
+def scale_df(df, columns_to_scale=None,
+             for_regression = False):
     if columns_to_scale is None:
         columns_to_scale = [col for col in df.columns if "Date" not in col]
 
@@ -62,7 +63,8 @@ def scale_df(df, columns_to_scale=None):
     for i, col_name in enumerate(scaled_columns):
         df_scaled = df_scaled.withColumn(col_name, extract_element_udf("scaled_features",lit(i)))
 
-    df_scaled = df_scaled.drop("features", "scaled_features")
+    if not for_regression:
+        df_scaled = df_scaled.drop("features", "scaled_features")
 
     return df_scaled
 
