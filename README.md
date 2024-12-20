@@ -78,5 +78,5 @@ This project aims to analyze the influence of global stock market indices on the
 3. PySpark documentation. Apache Spark: Unified Analytics Engine for Big Data. Retrieved from https://spark.apache.org/docs/latest/api/python/
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENCE).
 
